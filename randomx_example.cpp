@@ -14,7 +14,7 @@ int main() {
 
     // Set the target number of iterations per second and run duration as variables
     int targetRate = 1000; // Change this number to adjust the speed
-    int runDuration = 1000; // Change this number to adjust how long the program runs (in seconds)
+    int runDuration = 36000; // Change this number to adjust how long the program runs (in seconds)
 
     // Calculate target duration based on the rate
     const std::chrono::milliseconds targetDuration(1000 / targetRate);
