@@ -11,10 +11,10 @@ int main() {
     randomx_init_cache(cache, "RandomX key", 10);
     randomx_vm *vm = randomx_create_vm(flags, cache, NULL);
 
-    // Run for 100 seconds
+    // Run for 3600 seconds
     auto start = std::chrono::steady_clock::now();
     int count = 0;
-    while (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::steady_clock::now() - start).count() < 100) {
+    while (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::steady_clock::now() - start).count() < 3600) {
         // Modify input on each iteration
         std::stringstream ss;
         ss << "RandomX input " << count;
