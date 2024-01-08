@@ -1,37 +1,32 @@
-name: TestRandom
+name: Build and Run RandomX Example
 
-on: [push, workflow_dispatch]
+on: [push, pull_request]
 
 jobs:
-  setup_and_run:
-    runs-on: ubuntu-latest
+  build-and-run:
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y git build-essential cmake gcc g++ make librandomx-dev
 
-      - name: Setup and Run TXTest
+      - name: Compile RandomX Example
         run: |
-          #!/bin/bash
-          
-          # Update and upgrade packages
-          sudo apt-get update
-          sudo apt-get upgrade -y
-          
           g++ randomx_example.cpp -o randomx_example -lrandomx -pthread
-          
+
+      - name: Build RandomX
+        run: |
           mkdir -p build
           cd build
           cmake ..
           make -j$(nproc)
 
-          chmod +x randomx_example
-          
-          ./randomx_example
-
-        shell: bash
+      - name: Run RandomX Example
+        run: |
+          cd build
+          ../randomx_example
