@@ -12,16 +12,19 @@ int main() {
     randomx_init_cache(cache, "RandomX key", 10);
     randomx_vm *vm = randomx_create_vm(flags, cache, NULL);
 
-    // Target 100 iterations per second
-    const int targetRate = 100;
+    // Set the target number of iterations per second and run duration as variables
+    int targetRate = 1000; // Change this number to adjust the speed
+    int runDuration = 1000; // Change this number to adjust how long the program runs (in seconds)
+
+    // Calculate target duration based on the rate
     const std::chrono::milliseconds targetDuration(1000 / targetRate);
 
-    // Run for 100 seconds
+    // Run for 'runDuration' seconds
     auto start = std::chrono::steady_clock::now();
     int count = 0;
-    while (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::steady_clock::now() - start).count() < 100) {
+    while (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::steady_clock::now() - start).count() < runDuration) {
         auto iterStart = std::chrono::steady_clock::now();
-        
+
         // Modify input on each iteration
         std::stringstream ss;
         ss << "RandomX input " << count;
